@@ -3,33 +3,41 @@ import { useState } from "react"
 import { Sform } from "../style"
 export default function guia(props: any) {
 
-    const [moedaOne, setMoedaOne] = useState(0);
-    const [moedaTwo, setMoedaTwo] = useState(0);
-    const [tipomoedaOne, setTipomedaone] = useState(' ')
-    const [tipomoedaTwo, setTipomedaTwo] = useState(' ')
-
+    
+    const [result, setResult] = useState(0);
+    const [tipomoedaOne, setTipomedaone] = useState(1)
+    const [tipomoedaTwo, setTipomedaTwo] = useState(1)
+    function moedas(){
+        if(tipomoedaOne===1 && tipomoedaTwo===0){
+            return 1/5;
+        }
+        if(tipomoedaOne===0 && tipomoedaTwo===1){
+            return 5;
+        }
+        return 1
+    }
   
     
     return (<Sform>
         <form>
-            <select name="select" id="m1" onChange={(event) => { setTipomedaone(event.target.value) }} >
-                <option value="real">
+            <select name="select" id="m1" onChange={(event) => { setTipomedaone(parseInt(event.target.value))}} >
+                <option value="1">
                     real
                 </option>
-                <option value="dolar">
+                <option value="0">
                     dolar
                 </option>
             </select>
-            <input type="number" id="v1" placeholder="digite o valor" onChange={(event) => { setMoedaTwo(parseFloat(event.target.value)*5);  }} />
-            <select name="select" id="m2" onChange={(event) => { setTipomedaTwo(event.target.value) }}>
-                <option value="real">
+            <input type="number" id="v1" placeholder="digite o valor" onChange={(event) => { setResult(parseFloat(event.target.value)*moedas());  }} />
+            <select name="select" id="m2" onChange={(event) => { setTipomedaTwo(parseInt(event.target.value)) }}>
+                <option value="1">
                     real
                 </option>
-                <option value="dolar">
+                <option value="0">
                     dolar
                 </option>
             </select>
-            <input type="number" id="v2" placeholder="digite o valor" value={moedaTwo} />
+            <input type="number" id="v2" placeholder="digite o valor" value={result} />
         </form>
 
     </Sform>)
